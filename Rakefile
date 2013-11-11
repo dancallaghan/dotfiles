@@ -20,6 +20,7 @@ task :install do
   file_operation(Dir.glob('vim/vimrc'))
 
   install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
+  install_prezto
 
   success_msg("installed")
 end
@@ -77,6 +78,25 @@ private
       else
         run %{ cp -f "#{source}" "#{target}" }
       end
+    end
+  end
+
+  def install_prezto
+    puts
+    puts "Installing Prezto (ZSH Enhancements)..."
+
+    unless File.exists?(File.join(ENV['ZDOTDIR'] || ENV['HOME'], ".zprezto"))
+      run %{ ln -nfs "$HOME/.dotfiles/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
+
+      # The prezto runcoms are only going to be installed if zprezto has never been installed
+      file_operation(Dir.glob('zsh/prezto/runcoms/z*'), :copy)
+    end
+
+    if ENV["SHELL"].include? 'zsh' then
+      puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"
+    else
+      puts "Setting zsh as your default shell"
+      run %{ chsh -s /bin/zsh }
     end
   end
 
