@@ -1,8 +1,8 @@
 # set your user tokens as enivornment variables, such as ~/.secrets
 # See the README for examples.
 [user]
-  name = jsntv200
-  email = jason@redant.com.au
+  name = dancallaghan
+  email = danc@redant.com.au
 
 [color]
   ui = true
