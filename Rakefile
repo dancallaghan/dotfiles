@@ -90,6 +90,7 @@ private
 
       # The prezto runcoms are only going to be installed if zprezto has never been installed
       file_operation(Dir.glob('zsh/prezto/runcoms/z*'), :copy)
+      run %{ ln -nfs "$HOME/.dotfiles/zsh/preztorc" "${ZDOTDIR:-$HOME}/.zpreztorc" }
     end
 
     if ENV["SHELL"].include? 'zsh' then
