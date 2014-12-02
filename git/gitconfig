@@ -1,8 +1,8 @@
 # set your user tokens as enivornment variables, such as ~/.secrets
 # See the README for examples.
 [user]
-  name = dancallaghan
-  email = danc@redant.com.au
+  name = Dan Callaghan
+  email = dancallaghan@redant.com.au
 
 [color]
   ui = true
@@ -117,6 +117,13 @@
   autocrlf = false
   editor = vim
   excludesfile = ~/.dotfiles/git/gitignore
+  excludesfile = /opt/boxen/config/git/gitignore
+
+[hub]
+    protocol = https
+
+[credential]
+    helper = /opt/boxen/bin/boxen-git-credential
 
 [advice]
   statusHints = false

@@ -18,6 +18,7 @@ task :install do
   file_operation(Dir.glob('ruby/*'))
   file_operation(Dir.glob('vim'))
   file_operation(Dir.glob('vim/vimrc'))
+  file_operation(Dir.glob('zsh/zshrc'))
 
   install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
   install_prezto
