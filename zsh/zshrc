@@ -38,6 +38,9 @@ alias gzx='tar -zxvf'
 alias ka9='killall -9'
 alias k9='kill -9'
 
+# Editor
+export EDITOR=vim
+
 # Node binaries
 # PATH=$PATH:/usr/local/share/npm/bin
 
