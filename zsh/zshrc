@@ -5,8 +5,6 @@ zprezto=$HOME/.zprezto
 # Aliases
 #
 
-alias v='mvim'
-
 # Editing config files
 alias ve='v $dotfiles/vim/vimrc'
 alias ze='v $dotfiles/zsh/zshrc'
@@ -46,6 +44,10 @@ export EDITOR=vim
 
 # Boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+
+# Fasd
+eval "$(fasd --init auto)"
+alias v='f -e mvim'
 
 # Prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then

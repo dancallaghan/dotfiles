@@ -96,7 +96,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 set gfn=Inconsolata-dz\ for\ Powerline:h14
 
 if has('gui_running')
