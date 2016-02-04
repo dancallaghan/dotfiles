@@ -249,3 +249,6 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
+
+" Turn off balloonexpr
+:set noballooneval

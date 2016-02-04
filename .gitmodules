@@ -13,9 +13,9 @@
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/javascript"]
-	path = vim/bundle/javascript
-	url = git://github.com/pangloss/vim-javascript.git
+; [submodule "vim/bundle/javascript"]
+; 	path = vim/bundle/javascript
+; 	url = git://github.com/pangloss/vim-javascript.git
 [submodule "vim/bundle/ragtag"]
 	path = vim/bundle/ragtag
 	url = git://github.com/tpope/vim-ragtag.git
@@ -49,3 +49,9 @@
 [submodule "vim/bundle/vinegar"]
 	path = vim/bundle/vinegar
 	url = git@github.com:tpope/vim-vinegar.git
+[submodule "vim/bundle/ag"]
+	path = vim/bundle/ag
+	url = git@github.com:rking/ag.vim.git
+[submodule "vim/bundle/yajs"]
+  path = vim/bundle/yajs
+  url = git@github.com:othree/yajs.vim.git
