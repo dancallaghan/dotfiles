@@ -75,9 +75,10 @@ augroup vimrcEx
 
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
+  autocmd FileType slim setlocal commentstring=/\ %s
 
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass
+  autocmd! BufRead,BufNewFile *.es6 setfiletype javascript
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -131,6 +132,8 @@ nnoremap <leader><leader> <c-^>
 " Automcomplete line. Would map it to <c-l>, but that's already taken
 " by hash rocket
 inoremap <c-d> <c-x><c-l>
+" Shortcut to ag.vim
+nnoremap <leader>a :Ag!<space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY

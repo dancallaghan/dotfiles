@@ -53,5 +53,5 @@
 	path = vim/bundle/ag
 	url = git@github.com:rking/ag.vim.git
 [submodule "vim/bundle/yajs"]
-  path = vim/bundle/yajs
-  url = git@github.com:othree/yajs.vim.git
+	path = vim/bundle/yajs
+	url = git@github.com:othree/yajs.vim.git
