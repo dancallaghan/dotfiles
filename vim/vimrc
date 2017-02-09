@@ -15,6 +15,9 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
+" Search down into subfolders
+set path+=**
+
 set autoindent
 set laststatus=2
 set showmatch
@@ -132,8 +135,6 @@ nnoremap <leader><leader> <c-^>
 " Automcomplete line. Would map it to <c-l>, but that's already taken
 " by hash rocket
 inoremap <c-d> <c-x><c-l>
-" Shortcut to ag.vim
-nnoremap <leader>a :Ag!<space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -208,6 +209,7 @@ au BufRead,BufNewFile *.scss set filetype=scss
 let g:syntastic_html_tidy_ignore_errors = ['proprietary attribute', 'trimming empty', 'unescaped &']
 let g:syntastic_eruby_ruby_quiet_messages =
     \ {'regex': 'possibly useless use of a variable in void context'}
+let g:syntastic_always_populate_loc_list=1
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -253,5 +255,17 @@ function! AlternateForCurrentFile()
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
 
-" Turn off balloonexpr
-:set noballooneval
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ag.vim stuff
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! AgIdentifier()
+  normal "zyiw
+  exec ":Ag " . @z
+endfunction
+
+" Shortcut to ag.vim
+nnoremap <leader>a :Ag<space>
+nnoremap <leader>A :call AgIdentifier()<cr>
+
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1

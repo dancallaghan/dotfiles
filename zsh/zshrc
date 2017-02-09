@@ -37,7 +37,7 @@ alias ka9='killall -9'
 alias k9='kill -9'
 
 # Editor
-export EDITOR=vim
+export EDITOR=nvim
 
 # Node binaries
 # PATH=$PATH:/usr/local/share/npm/bin
@@ -48,6 +48,7 @@ export EDITOR=vim
 # Fasd
 eval "$(fasd --init auto)"
 alias v='f -e mvim'
+alias vim='nvim'
 
 # Prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -56,6 +57,9 @@ fi
 
 # Android SDK
 export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
+
+# Gruvbox fix
+source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
 # added by travis gem
 [ -f /Users/dcal/.travis/travis.sh ] && source /Users/dcal/.travis/travis.sh

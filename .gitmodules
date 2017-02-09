@@ -55,3 +55,6 @@
 [submodule "vim/bundle/yajs"]
 	path = vim/bundle/yajs
 	url = git@github.com:othree/yajs.vim.git
+[submodule "vim/bundle/neomake"]
+	path = vim/bundle/neomake
+	url = https://github.com/neomake/neomake.git
