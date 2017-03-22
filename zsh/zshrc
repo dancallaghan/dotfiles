@@ -14,6 +14,9 @@ fi
 # vi mode
 set -o emacs
 
+# Set characters consider word boundaries
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
 # The time the shell waits, in hundredths of seconds, for another key
 # to be pressed when reading bound multi-character sequences.
 #

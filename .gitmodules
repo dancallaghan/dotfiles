@@ -52,3 +52,6 @@
 [submodule "zsh/zim"]
 	path = zsh/zim
 	url = https://github.com/Eriner/zim.git
+[submodule "vim/bundle/vitality"]
+	path = vim/bundle/vitality
+	url = https://github.com/sjl/vitality.vim.git
