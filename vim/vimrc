@@ -63,6 +63,9 @@ let mapleader=","
 set splitbelow
 set splitright
 
+" Turn off match parens
+let loaded_matchparen = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,12 +79,12 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  "for ruby, autoindent with two spaces, always expand tabs
+  " For ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
   autocmd FileType slim setlocal commentstring=/\ %s
 
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass
-  autocmd! BufRead,BufNewFile *.es6 setfiletype javascript
+  " Run Neomake on write
+  autocmd! BufWritePost * Neomake
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -103,11 +106,6 @@ set background=dark
 colorscheme gruvbox
 set gfn=Inconsolata-dz\ for\ Powerline:h14
 
-if has('gui_running')
-  set guioptions=egmrt
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,6 +114,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Yank to system clipboard
 map <leader>y "*y
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -204,12 +203,7 @@ set list listchars=tab:\ \ ,trail:·
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SCSS Syntax https://github.com/cakebaker/scss-syntax.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufRead,BufNewFile *.scss set filetype=scss
-
-let g:syntastic_html_tidy_ignore_errors = ['proprietary attribute', 'trimming empty', 'unescaped &']
-let g:syntastic_eruby_ruby_quiet_messages =
-    \ {'regex': 'possibly useless use of a variable in void context'}
-let g:syntastic_always_populate_loc_list=1
+" au BufRead,BufNewFile *.scss set filetype=scss
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -258,7 +252,6 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ag.vim stuff
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! AgIdentifier()
   normal "zyiw
   exec ":Ag " . @z

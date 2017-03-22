@@ -1,46 +1,29 @@
-dotfiles=$HOME/.dotfiles
-zprezto=$HOME/.zprezto
-
 #
-# Aliases
+# User configuration sourced by interactive shells
 #
 
-# Editing config files
-alias ve='v $dotfiles/vim/vimrc'
-alias ze='v $dotfiles/zsh/zshrc'
-alias zpe='v $HOME/.zpreztorc'
-alias ge='v $dotfiles/git/gitconfig'
-alias he='sudo vim /etc/hosts'
+# Source zim
+if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+fi
 
-# Reload settings
-alias zr='source $dotfiles/zsh/zshrc'
+#
+# User configuration sourced by interactive shells
+#
 
-# Show me files matching "ls ag"
-alias lsf='ll | ag'
+# vi mode
+set -o emacs
 
-# PS
-alias psa='ps aux'
-alias psg='ps aux | ag '
-alias psr='ps aux | ag ruby'
-
-# Common shell functions
-alias tf='tail -f'
-alias lh='ls -alt | head' # see the last modified files
-alias cl='clear'
-
-# Zippin
-alias gzc='tar -zcvf'
-alias gzx='tar -zxvf'
-
-# Kill
-alias ka9='killall -9'
-alias k9='kill -9'
+# The time the shell waits, in hundredths of seconds, for another key
+# to be pressed when reading bound multi-character sequences.
+#
+# Set to shortest possible delay is 1/100 second.
+# This allows escape sequences like cursor/arrow keys to work,
+# while eliminating the delay exiting vi insert mode.
+KEYTIMEOUT=1
 
 # Editor
 export EDITOR=nvim
-
-# Node binaries
-# PATH=$PATH:/usr/local/share/npm/bin
 
 # Boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
@@ -51,15 +34,9 @@ alias v='f -e mvim'
 alias vim='nvim'
 
 # Prezto
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
-# Android SDK
-export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
+# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# fi
 
 # Gruvbox fix
 source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
-
-# added by travis gem
-[ -f /Users/dcal/.travis/travis.sh ] && source /Users/dcal/.travis/travis.sh

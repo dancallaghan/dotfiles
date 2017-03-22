@@ -1,9 +1,6 @@
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
-	url = git://github.com/scrooloose/syntastic.git
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
@@ -13,15 +10,12 @@
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-; [submodule "vim/bundle/javascript"]
-; 	path = vim/bundle/javascript
-; 	url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = git://github.com/pangloss/vim-javascript.git
 [submodule "vim/bundle/ragtag"]
 	path = vim/bundle/ragtag
 	url = git://github.com/tpope/vim-ragtag.git
-[submodule "vim/bundle/rails"]
-	path = vim/bundle/rails
-	url = git://github.com/tpope/vim-rails.git
 [submodule "vim/bundle/repeat"]
 	path = vim/bundle/repeat
 	url = git://github.com/tpope/vim-repeat.git
@@ -52,9 +46,9 @@
 [submodule "vim/bundle/ag"]
 	path = vim/bundle/ag
 	url = git@github.com:rking/ag.vim.git
-[submodule "vim/bundle/yajs"]
-	path = vim/bundle/yajs
-	url = git@github.com:othree/yajs.vim.git
 [submodule "vim/bundle/neomake"]
 	path = vim/bundle/neomake
 	url = https://github.com/neomake/neomake.git
+[submodule "zsh/zim"]
+	path = zsh/zim
+	url = https://github.com/Eriner/zim.git
