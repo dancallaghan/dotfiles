@@ -1,6 +1,26 @@
-" This is Gary Bernhardt's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab:
-call pathogen#infect()
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-PLUG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'morhetz/gruvbox'
+Plug 'neomake/neomake'
+Plug 'pangloss/vim-javascript'
+Plug 'rking/ag.vim'
+Plug 'sjl/vitality.vim'
+Plug 'slim-template/vim-slim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-ruby/vim-ruby'
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -260,3 +280,4 @@ nnoremap <leader>a :Ag<space>
 nnoremap <leader>A :call AgIdentifier()<cr>
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
