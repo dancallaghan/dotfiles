@@ -83,11 +83,35 @@ let mapleader=","
 set splitbelow
 set splitright
 
-" Turn off match parens
-let loaded_matchparen = 1
+" Typing key combos
+set notimeout
+set ttimeout
+if !has('nvim')
+  set ttimeoutlen=10
+endif
+
+" Undo files
+set undofile
+set undolevels=1000
+set undoreload=10000
+
+" Add trailing whitespace characters
+set list
+set listchars=
+set listchars+=tab:→\ 
+set listchars+=trail:·
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=nbsp:⣿
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CUSTOM AUTOCMDS
+" Whitespace
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nowrap
+set nojoinspaces
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom AutoCmds
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup vimrcEx
   " Clear all autocmds in the group
@@ -119,15 +143,9 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:solarized_termcolors=256
 set background=dark
 colorscheme gruvbox
 set gfn=Inconsolata-dz\ for\ Powerline:h14
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -215,9 +233,6 @@ function! OpenChangedFiles()
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
 
-" Add trailing whitespace characters
-set list listchars=tab:\ \ ,trail:·
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SCSS Syntax https://github.com/cakebaker/scss-syntax.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -278,6 +293,22 @@ endfunction
 " Shortcut to ag.vim
 nnoremap <leader>a :Ag<space>
 nnoremap <leader>A :call AgIdentifier()<cr>
+
+" Statusline
+" Must init statusline after plugs installed since it uses some plugins
+" @TODO decouple
+augroup dcalstatusline
+  autocmd!
+
+  autocmd VimEnter
+        \ *
+        \ set statusline=%!dcalstatus#Output(1)
+
+  " initial statusline in case you type before VimEnter
+  autocmd BufWinEnter,Colorscheme,Filetype,SessionLoadPost,WinEnter
+        \ *
+        \ call dcalstatus#Refresh()
+augroup END
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
