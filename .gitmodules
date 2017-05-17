@@ -1,6 +1,7 @@
 [submodule "zsh/zim"]
 	path = zsh/zim
 	url = https://github.com/Eriner/zim.git
+	ignore = dirty
 [submodule "vim/plug"]
 	path = vim/plug
 	url = https://github.com/junegunn/vim-plug.git
