@@ -11,7 +11,7 @@ fi
 # User configuration sourced by interactive shells
 #
 
-# vi mode
+# Emacs mode
 set -o emacs
 
 # Set characters consider word boundaries
@@ -52,15 +52,8 @@ export EDITOR=nvim
 # Boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 
-# Fasd
-eval "$(fasd --init auto)"
-
-# Prezto
-# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-# fi
-
 # Gruvbox fix
-source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+source "$HOME/.vim/gruvbox/gruvbox_256palette_osx.sh"
 
+# Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
