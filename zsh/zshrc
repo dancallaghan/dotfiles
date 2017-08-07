@@ -1,15 +1,7 @@
-#
-# User configuration sourced by interactive shells
-#
-
 # Source zim
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 fi
-
-#
-# User configuration sourced by interactive shells
-#
 
 # Emacs mode
 set -o emacs
@@ -27,7 +19,6 @@ KEYTIMEOUT=1
 
 # Aliases
 alias la='ls -la'
-alias v='f -e mvim'
 alias vim='nvim'
 
 # git pull pull request
@@ -48,9 +39,6 @@ function gpr() {
 
 # Editor
 export EDITOR=nvim
-
-# Boxen
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 
 # Gruvbox fix
 source "$HOME/.vim/gruvbox/gruvbox_256palette_osx.sh"
