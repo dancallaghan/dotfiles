@@ -4,7 +4,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-PLUG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'morhetz/gruvbox'

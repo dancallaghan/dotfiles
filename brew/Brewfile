@@ -1,3 +1,4 @@
+brew 'imagemagick'
 brew 'mariadb'
 brew 'nodenv'
 brew 'neovim'

@@ -111,13 +111,19 @@ ln -sfv "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
 #======================
 # vim
 fancy_echo "<=> Linking: vim config"
+[[ -d "$HOME/.config/nvim" ]] || mkdir -p "$HOME/.config/nvim"
 ln -sfv "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
+ln -sfv "$HOME/dotfiles/vim/vimrc" "$HOME/.config/nvim/init.vim"
+
+if [ ! -L "$HOME/.config/nvim/autoload" ]; then
+  ln -sfv "$HOME/dotfiles/vim/vim/autoload" "$HOME/.config/nvim/autoload"
+fi
 
 if [ ! -L "$HOME/.vim" ]; then
   ln -sfv "$HOME/dotfiles/vim/vim" "$HOME/.vim"
 fi
 
-vim +PluginInstall +qall
+nvim +PlugInstall +qall
 
 
 #======================
