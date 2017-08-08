@@ -117,13 +117,12 @@
   autocrlf = false
   editor = vim
   excludesfile = ~/.dotfiles/git/gitignore
-  excludesfile = /opt/boxen/config/git/gitignore
 
 [hub]
-    protocol = https
+  protocol = https
 
 [credential]
-    helper = /opt/boxen/bin/boxen-git-credential
+  helper = /opt/boxen/bin/boxen-git-credential
 
 [advice]
   statusHints = false
@@ -137,10 +136,3 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
-
-[difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true

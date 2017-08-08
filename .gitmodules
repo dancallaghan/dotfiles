@@ -2,6 +2,6 @@
 	path = zsh/zim
 	url = https://github.com/Eriner/zim.git
 	ignore = dirty
-[submodule "vim/plug"]
-	path = vim/plug
+[submodule "vim/vim/plug"]
+	path = vim/vim/plug
 	url = https://github.com/junegunn/vim-plug.git

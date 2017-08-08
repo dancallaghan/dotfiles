@@ -9,39 +9,5 @@ set -o emacs
 # Set characters consider word boundaries
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# The time the shell waits, in hundredths of seconds, for another key
-# to be pressed when reading bound multi-character sequences.
-#
-# Set to shortest possible delay is 1/100 second.
-# This allows escape sequences like cursor/arrow keys to work,
-# while eliminating the delay exiting vi insert mode.
-KEYTIMEOUT=1
-
-# Aliases
-alias la='ls -la'
-alias vim='nvim'
-
-# git pull pull request
-
-# e.g.
-# gpr 330        => git pull upstream pull/330/head
-# gpr origin 240 => git pull origin pull/240/head
-
-function gpr() {
-  if [[ "$#" == 2 ]]; then
-    git pull $1 pull/$2/head
-  elif [[ "$#" == 1 ]]; then
-    git pull upstream pull/$1/head
-  else
-    echo 'Requires remote (optional) and PR number'
-  fi
-}
-
-# Editor
-export EDITOR=nvim
-
-# Gruvbox fix
-source "$HOME/.vim/gruvbox/gruvbox_256palette_osx.sh"
-
-# Yarn path
-export PATH="./node_modules/.bin:$HOME/.yarn/bin:$PATH"
+# Local config
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
