@@ -13,10 +13,12 @@
   remote = green
 
 [color "diff"]
-  meta = yellow bold
+  meta = yellow
   frag = magenta bold
   old = red bold
   new = green bold
+  commit = yellow bold
+  whitespace = red reverse
 
 [alias]
   # add
@@ -94,6 +96,7 @@
 
   # remove all deleted files
   rmd = rm $(git ls-files --deleted)
+  ctags = !.git/hooks/ctags
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
@@ -117,6 +120,7 @@
   autocrlf = false
   editor = vim
   excludesfile = ~/.dotfiles/git/gitignore
+  pager = diff-so-fancy | less --tabs=4 -RFX
 
 [hub]
   protocol = https
@@ -133,3 +137,9 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
+
+[init]
+  templatedir = ~/.git_template
+
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
