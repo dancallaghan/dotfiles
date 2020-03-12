@@ -1,19 +1,10 @@
-Dotfiles
-==============================
+# Dotfiles
 
 Dotfiles for git, ruby, vim and zsh
 
-Installation
-------------
+## Installation
 
-  1. Clone the repository:
-
-        git clone --recursive git@github.com:dancallaghan/dotfiles.git "${ZDOTDIR:-$HOME}/.dotfiles"
-
-  2. Link the dotfiles:
-
-        cd ~/.dotfiles && rake
-
-  3. Install the submodules
-
-        git submodule init && git submodule update
+```bash
+$ git clone --recursive git@github.com:dancallaghan/dotfiles.git "${ZDOTDIR:-$HOME}/.dotfiles"
+$ cd ~/.dotfiles && ./strap.sh
+```
