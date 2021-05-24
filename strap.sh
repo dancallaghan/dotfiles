@@ -1,5 +1,7 @@
 #!/bin/sh
 
+dotfiles_dir=`dirname $0`
+
 fancy_echo() {
   local fmt="$1"; shift
   printf "\n$fmt\n" "$@"
@@ -79,11 +81,11 @@ git submodule update --init --recursive
 create_zshrc_local
 
 fancy_echo "<=> Linking: zsh config"
-ln -sfv "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
-ln -sfv "$HOME/dotfiles/zsh/zimrc" "$HOME/.zimrc"
+ln -sfv "$dotfiles_dir/zsh/zshrc" "$HOME/.zshrc"
+ln -sfv "$dotfiles_dir/zsh/zimrc" "$HOME/.zimrc"
 
 if [ ! -L "$HOME/.zim" ]; then
-  ln -sfv "$HOME/dotfiles/zsh/zim" "$HOME/.zim"
+  ln -sfv "$dotfiles_dir/zsh/zim" "$HOME/.zim"
 fi
 
 
@@ -92,7 +94,7 @@ fi
 install_brew
 
 fancy_echo "<=> Linking: Homebrew config"
-ln -sfv "$HOME/dotfiles/brew/Brewfile" "$HOME"
+ln -sfv "$dotfiles_dir/brew/Brewfile" "$HOME"
 
 fancy_echo "↑↑↑ Updating Homebrew formulae..."
 brew update
@@ -105,22 +107,22 @@ check_shell
 #======================
 # git
 fancy_echo "<=> Linking: git config"
-ln -sfv "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
+ln -sfv "$dotfiles_dir/git/gitconfig" "$HOME/.gitconfig"
 
 
 #======================
 # vim
 fancy_echo "<=> Linking: vim config"
 [[ -d "$HOME/.config/nvim" ]] || mkdir -p "$HOME/.config/nvim"
-ln -sfv "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
-ln -sfv "$HOME/dotfiles/vim/vimrc" "$HOME/.config/nvim/init.vim"
+ln -sfv "$dotfiles_dir/vim/vimrc" "$HOME/.vimrc"
+ln -sfv "$dotfiles_dir/vim/vimrc" "$HOME/.config/nvim/init.vim"
 
 if [ ! -L "$HOME/.config/nvim/autoload" ]; then
-  ln -sfv "$HOME/dotfiles/vim/vim/autoload" "$HOME/.config/nvim/autoload"
+  ln -sfv "$dotfiles_dir/vim/vim/autoload" "$HOME/.config/nvim/autoload"
 fi
 
 if [ ! -L "$HOME/.vim" ]; then
-  ln -sfv "$HOME/dotfiles/vim/vim" "$HOME/.vim"
+  ln -sfv "$dotfiles_dir/vim/vim" "$HOME/.vim"
 fi
 
 nvim +PlugInstall +qall
