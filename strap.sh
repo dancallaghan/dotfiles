@@ -1,6 +1,7 @@
 #!/bin/sh
 
-dotfiles_dir=`dirname $0`
+dotfiles_dir=`cd -- "$(dirname $0)" > /dev/null 2>&1; pwd -P`
+echo $dotfiles_dir
 
 fancy_echo() {
   local fmt="$1"; shift
@@ -79,6 +80,8 @@ git submodule update --init --recursive
 create_zshrc_local
 
 fancy_echo "<=> Linking: zsh config"
+ln -sfv "$dotfiles_dir/zsh/zshenv" "$HOME/.zshenv"
+ln -sfv "$dotfiles_dir/zsh/zlogin" "$HOME/.zlogin"
 ln -sfv "$dotfiles_dir/zsh/zshrc" "$HOME/.zshrc"
 ln -sfv "$dotfiles_dir/zsh/zimrc" "$HOME/.zimrc"
 
@@ -90,7 +93,6 @@ fi
 #======================
 # brew
 install_brew
-
 fancy_echo "<=> Linking: Homebrew config"
 ln -sfv "$dotfiles_dir/brew/Brewfile" "$HOME"
 
