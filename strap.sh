@@ -59,8 +59,8 @@ check_shell() {
 install_brew() {
   if ! command -v brew >/dev/null; then
     fancy_echo "Installing Homebrew..."
-    curl -fsS \
-      'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+    curl -fsSL \
+      'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh' | /bin/bash
 
     export PATH="/usr/local/bin:$PATH"
   fi
