@@ -97,6 +97,7 @@
   # remove all deleted files
   rmd = rm $(git ls-files --deleted)
   ctags = !.git/hooks/ctags
+  recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
