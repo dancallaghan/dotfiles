@@ -128,5 +128,3 @@ export LC_ALL=en_US.UTF-8
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export PATH="$HOME/.bin:$PATH"
