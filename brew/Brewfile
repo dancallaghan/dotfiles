@@ -1,9 +1,11 @@
+tap 'heroku/brew'
+
 brew 'bat'
 brew 'diff-so-fancy'
 brew 'fzf'
 brew 'git'
 brew 'gh'
-# brew 'heroku'
+brew 'heroku'
 brew 'imagemagick'
 brew 'jq'
 brew 'nodenv'
