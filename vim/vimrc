@@ -16,19 +16,15 @@ Plug 'jceb/vim-orgmode'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
-" Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
-" Plug 'leafgarland/typescript-vim'
-" Plug 'sjl/vitality.vim'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 call plug#end()
@@ -143,11 +139,6 @@ augroup vimrcEx
   " Check buffers when iTerm gains focus
   set autoread
   autocmd FocusGained * checktime
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,39 +152,38 @@ highlight Comment cterm=italic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Make capital h/l like super h/l
 noremap ^ H
 noremap $ L
 noremap H ^
 noremap L $
+
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
-" Clear the search buffer when hitting return
-function! MapCR()
-  nnoremap <cr> :nohlsearch<cr>
-endfunction
-call MapCR()
 nnoremap <leader><leader> <c-^>
+
 " Automcomplete line. Would map it to <c-l>, but that's already taken
 " by hash rocket
 inoremap <c-d> <c-x><c-l>
 
 " Yank to system clipboard
 map <leader>y "*y
+
 " Make Y behave like other uppercase commands
 nnoremap Y y$
 
 " Instead of stumbling into ex mode, repeat the last macro used
 nnoremap Q @@
-" Exiting insert mode
-inoremap jk <esc>
+
+" Clear search
+nnoremap <silent> <leader><cr> :nohls<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EDITING VIMRC
@@ -216,20 +206,10 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ARROW KEYS ARE UNACCEPTABLE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LOCATION LIST MAPPINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap g1 :silent! :silent! :ll 1\|:normal zz<cr>
-nnoremap gj :silent! :ll\|:silent! :lnext\|:normal zz<cr>
-nnoremap gk :silent! :ll\|:silent! :lprev\|:normal zz<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
@@ -255,112 +235,19 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1 || match(current_file, '\<services\>') != -1 || match(current_file, '\<workers\>') != -1|| match(current_file, '\<services\>') != -1 || match(current_file, '\<services\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
+" FZF
+nnoremap <silent> <leader>ff :FZF<cr>
+nnoremap <silent> <leader>fb :Buffers<cr>
+nnoremap <leader>fa :Ag<space>
+nnoremap <silent> <leader>fs :Ag <C-R><C-W><cr>
+nnoremap <silent> <leader>fd :Ag def <C-R><C-W><cr>
 
-if has('nvim') || has('gui_running')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-endif
-
-" Ctrl-P => fzf
-nnoremap <c-p> :FZF<cr>
-nnoremap <c-b> :Buffers<cr>
-
-" Shortcut to fzf.vim
-nnoremap <leader>aa :Ag<space>
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader><Enter> :Buffers<CR>
-
-" [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
-
-" [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-" [Ag] with preview
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
-
-function! CreateCenteredFloatingWindow()
-  let width = min([&columns - 4, max([80, &columns - 100])])
-  let height = min([&lines - 4, max([20, &lines - 100])])
-  let top = ((&lines - height) / 2) - 1
-  let left = (&columns - width) / 2
-  let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-  let top = "╭" . repeat("─", width - 2) . "╮"
-  let mid = "│" . repeat(" ", width - 2) . "│"
-  let bot = "╰" . repeat("─", width - 2) . "╯"
-  let lines = [top] + repeat([mid], height - 2) + [bot]
-  let s:buf = nvim_create_buf(v:false, v:true)
-  call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-  call nvim_open_win(s:buf, v:true, opts)
-  set winhl=Normal:Floating
-  let opts.row += 1
-  let opts.height -= 2
-  let opts.col += 2
-  let opts.width -= 4
-  call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-  au BufWipeout <buffer> exe 'bw '.s:buf
-endfunction
-
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = float2nr(10)
-  let width = float2nr(80)
-  let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 1
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
+" Fugitive Keybindings
+nnoremap <silent> <leader>gm :Git mergetool<cr>
 
 " Statusline
 " Must init statusline after plugs installed since it uses some plugins
@@ -393,6 +280,3 @@ let g:ale_fix_on_save = 1
 nnoremap <F9> :Dispatch<CR>
 
 let test#strategy = { 'nearest': 'neovim', 'file': 'dispatch', 'suite': 'basic' }
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
