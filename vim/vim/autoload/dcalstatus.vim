@@ -37,8 +37,6 @@ function! dcalstatus#Output(winnr) abort
   " Left side
   " ==========================================================================
 
-  let l:contents .= '%#TabLine# ' . dcalstatus#Mode()
-
   " Filebased
   "let l:contents .= '%h%q%w'     " [help][Quickfix/Location List][Preview]
   let l:contents .= '%#StatusLine#' . dcalstatus#Filetype()
@@ -48,16 +46,8 @@ function! dcalstatus#Output(winnr) abort
 
   " Toggleable
   let l:contents .= '%#DiffText#' . dcalstatus#Paste()
+
   let l:contents .= '%#Error#' . dcalstatus#Readonly()
-
-  " Temporary
-  let l:contents .= '%#NeomakeErrorSign#'
-        \. dcalstatus#Neomake('E', dcalstatus#NeomakeCounts())
-  let l:contents .= '%#NeomakeWarningSign#'
-        \. dcalstatus#Neomake('W', dcalstatus#NeomakeCounts())
-
-  " Search context
-  let l:contents .= '%#Search#' . dcalstatus#Anzu()
 
   " ==========================================================================
   " Right side
@@ -65,31 +55,11 @@ function! dcalstatus#Output(winnr) abort
 
   " Instance context
   let l:contents .= '%*%='
-  let l:contents .= '%#TermCursor#' . dcalstatus#GutentagsStatus()
-  let l:contents .= '%#TermCursor#' . dcalstatus#NeomakeJobs()
   let l:contents .= '%<'
   let l:contents .= '%#PmenuSel#' . dcalstatus#ShortPath()
-  let l:contents .= '%#TabLine#' . dcalstatus#Ruler()
+  let l:contents .= '%#StatusLine#' . dcalstatus#Ruler()
 
   return l:contents
-endfunction
-
-" @return {String}
-function! dcalstatus#Mode() abort
-  " blacklist
-  let l:modecolor = '%#TabLine#'
-  let l:modeflag = mode()
-  if l:modeflag ==# 'i'
-    let l:modecolor = '%#PmenuSel#'
-  elseif l:modeflag ==# 'R'
-    let l:modecolor = '%#DiffDelete#'
-  elseif l:modeflag =~? 'v'
-    let l:modecolor = '%#Cursor#'
-  elseif l:modeflag ==? "\<C-v>"
-    let l:modecolor = '%#Cursor#'
-    let l:modeflag = 'B'
-  endif
-  return  l:modecolor . ' ' . l:modeflag . ' '
 endfunction
 
 " @return {String}
@@ -97,29 +67,6 @@ function! dcalstatus#Paste() abort
   return s:winnr != winnr() || empty(&paste)
         \ ? ''
         \ : ' ᴘ '
-endfunction
-
-" @return {String}
-function! dcalstatus#Neomake(key, counts) abort
-  let l:e = get(a:counts, a:key, 0)
-  return l:e ? ' ⚑' . l:e . ' ' : ''
-endfunction
-
-" @return {String}
-function! dcalstatus#NeomakeCounts() abort
-  return s:winnr != winnr()
-        \ || !exists('*neomake#statusline#LoclistCounts')
-        \ ? {}
-        \ : neomake#statusline#LoclistCounts()
-endfunction
-
-" @return {String}
-function! dcalstatus#NeomakeJobs() abort
-  return s:winnr != winnr()
-        \ || !exists('*neomake#GetJobs')
-        \ || empty(neomake#GetJobs())
-        \ ? ''
-        \ : ' ᴍᴀᴋᴇ '
 endfunction
 
 " @return {String}
@@ -152,18 +99,6 @@ function! dcalstatus#Dirty() abort
 endfunction
 
 " @return {String}
-function! dcalstatus#Anzu() abort
-  if s:winnr != winnr() || !exists('*anzu#search_status')
-    return ''
-  endif
-
-  let l:anzu = anzu#search_status()
-  return empty(l:anzu)
-        \ ? ''
-        \ : ' ' . l:anzu . ' '
-endfunction
-
-" @return {String}
 function! dcalstatus#ShortPath() abort
   if s:ww < 80
         \ || dcalstatus#IsNonFile()
@@ -185,21 +120,10 @@ function! dcalstatus#GitBranch() abort
         \ || dcalstatus#IsNonFile()
         \ || dcalstatus#IsHelp()
         \ ? ''
-        \ : exists('*fugitive#head')
-        \   ? ' ' . fugitive#head(7) . ' '
-        \   : exists('g:gita#debug')
-        \     ? gita#statusline#format('%lb')
-        \     : ''
-endfunction
-
-" @return {String}
-function! dcalstatus#GutentagsStatus() abort
-  return s:winnr != winnr() || !exists('g:loaded_gutentags')
-        \ ? ''
-        \ : '%{gutentags#statusline(" ᴛᴀɢ ")}'
+        \ : ' ' . fugitive#head(7) . ' '
 endfunction
 
 " @return {String}
 function! dcalstatus#Ruler() abort
-  return ' %5.(%c%) '
+  return ' %5l : %-4c '
 endfunction
