@@ -119,7 +119,7 @@
 
 [core]
   autocrlf = false
-  editor = vim
+  editor = nvim
   excludesfile = ~/.dotfiles/git/gitignore
   pager = diff-so-fancy | less --tabs=4 -RFX
 
@@ -140,7 +140,7 @@
   enabled = true
 
 [init]
-  templatedir = ~/.git_template
+  templatedir = ~/.gittemplate
 
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
