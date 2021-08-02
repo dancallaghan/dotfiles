@@ -107,7 +107,7 @@ check_shell
 #======================
 # git
 fancy_echo "<=> Linking: git config"
-ln -sfv "$dotfiles_dir/git/gitconfig" "$HOME/.gitconfig"
+stow git
 
 
 #======================
