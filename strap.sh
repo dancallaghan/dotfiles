@@ -115,10 +115,17 @@ stow git
 fancy_echo "<=> Linking: neovim config"
 stow nvim
 
+
 #======================
 # kitty
 fancy_echo "<=> Linking: kitty config"
 stow kitty
+
+
+#======================
+# ctags
+fancy_echo "<=> Linking: ctags config"
+stow ctags
 
 
 #======================

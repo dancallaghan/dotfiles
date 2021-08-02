@@ -1,0 +1,5 @@
+--exclude=coverage
+--exclude=node_modules
+--exclude=public/assets
+--exclude=tmp
+--languages=-sql,json
