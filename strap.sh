@@ -68,11 +68,16 @@ install_brew() {
   append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
 }
 
-append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+install_zim() {
+  if [ ! -d "$HOME/.zim" ]; then
+    fancy_echo "Installing zim..."
+    curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+  fi
 
-#======================
-# submodules
-git submodule update --init --recursive
+  zsh ~/.zim/zimfw.zsh install
+}
+
+append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 
 #======================
@@ -80,26 +85,19 @@ git submodule update --init --recursive
 create_zshrc_local
 
 fancy_echo "<=> Linking: zsh config"
-ln -sfv "$dotfiles_dir/zsh/zshenv" "$HOME/.zshenv"
-ln -sfv "$dotfiles_dir/zsh/zlogin" "$HOME/.zlogin"
-ln -sfv "$dotfiles_dir/zsh/zshrc" "$HOME/.zshrc"
-ln -sfv "$dotfiles_dir/zsh/zimrc" "$HOME/.zimrc"
-
-if [ ! -L "$HOME/.zim" ]; then
-  ln -sfv "$dotfiles_dir/zsh/zim" "$HOME/.zim"
-fi
+stow zsh
+stow zim
+install_zim
 
 
 #======================
 # brew
 install_brew
-fancy_echo "<=> Linking: Homebrew config"
-ln -sfv "$dotfiles_dir/brew/Brewfile" "$HOME"
 
 fancy_echo "↑↑↑ Updating Homebrew formulae..."
 brew update
 fancy_echo "↓↓↓ Installing Homebrew bundle..."
-brew bundle --file="$HOME/Brewfile"
+brew bundle --file="$dotfiles_dir/brew/Brewfile"
 
 check_shell
 
