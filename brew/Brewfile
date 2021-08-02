@@ -1,5 +1,3 @@
-tap 'heroku/brew'
-
 brew 'bat'
 brew 'diff-so-fancy'
 brew 'fd'
