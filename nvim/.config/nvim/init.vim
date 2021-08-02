@@ -12,9 +12,9 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'dense-analysis/ale'
-Plug 'jceb/vim-orgmode'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'morhetz/gruvbox'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
@@ -23,7 +23,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
@@ -33,9 +32,7 @@ call plug#end()
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-" allow unsaved background buffers and remember marks/undo for them
 set hidden
-" remember more commands and search history
 set history=10000
 set expandtab
 set tabstop=2
@@ -51,29 +48,22 @@ set laststatus=2
 set showmatch
 set incsearch
 set hlsearch
-" make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
-" highlight current line
 set cursorline
 set cmdheight=2
 set switchbuf=usetab
 set numberwidth=5
 set showtabline=2
 set winwidth=79
-" This makes RVM work inside Vim. I have no idea why.
-set shell=bash
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
+" Keep more context when scrolling off the end of a buffer
 set scrolloff=3
 " Store temporary files in a central spot
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" allow backspacing over everything in insert mode
+" Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-" display incomplete commands
+" Display incomplete commands
 set showcmd
 " Enable highlighting for syntax
 syntax on
@@ -94,9 +84,6 @@ set splitright
 " Typing key combos
 set notimeout
 set ttimeout
-if !has('nvim')
-  set ttimeoutlen=10
-endif
 
 " Undo files
 set undofile
@@ -134,19 +121,15 @@ augroup vimrcEx
   " For ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
   autocmd FileType slim setlocal commentstring=/\ %s
-  autocmd FileType ruby let b:dispatch = 'bundle exec rspec %'
 
   " Check buffers when iTerm gains focus
-  set autoread
   autocmd FocusGained * checktime
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
 colorscheme gruvbox
-set gfn=Pragmata\ Pro\ Regular:h14
 highlight Comment cterm=italic
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,10 +150,10 @@ nnoremap <c-l> <c-w>l
 
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
+" Jump to alternate buffer
 nnoremap <leader><leader> <c-^>
 
-" Automcomplete line. Would map it to <c-l>, but that's already taken
-" by hash rocket
+" Automcomplete line
 inoremap <c-d> <c-x><c-l>
 
 " Yank to system clipboard
@@ -206,6 +189,7 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+" No arrow keys
 map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
@@ -216,7 +200,6 @@ map <Down> <Nop>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
-map <leader>v :view %%
 
 " Grep word under cursor
 map <leader>k :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -248,6 +231,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " Fugitive Keybindings
 nnoremap <silent> <leader>gm :Git mergetool<cr>
+nnoremap <silent> <leader>gb :Git blame<cr>
 
 " Statusline
 " Must init statusline after plugs installed since it uses some plugins
@@ -276,7 +260,3 @@ let g:ale_fixers = {
 \}
 
 let g:ale_fix_on_save = 1
-
-nnoremap <F9> :Dispatch<CR>
-
-let test#strategy = { 'nearest': 'neovim', 'file': 'dispatch', 'suite': 'basic' }
