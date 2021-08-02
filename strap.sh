@@ -112,20 +112,13 @@ ln -sfv "$dotfiles_dir/git/gitconfig" "$HOME/.gitconfig"
 
 #======================
 # vim
-fancy_echo "<=> Linking: vim config"
-[[ -d "$HOME/.config/nvim" ]] || mkdir -p "$HOME/.config/nvim"
-ln -sfv "$dotfiles_dir/vim/vimrc" "$HOME/.vimrc"
-ln -sfv "$dotfiles_dir/vim/vimrc" "$HOME/.config/nvim/init.vim"
+fancy_echo "<=> Linking: neovim config"
+stow nvim
 
-if [ ! -L "$HOME/.config/nvim/autoload" ]; then
-  ln -sfv "$dotfiles_dir/vim/vim/autoload" "$HOME/.config/nvim/autoload"
-fi
-
-if [ ! -L "$HOME/.vim" ]; then
-  ln -sfv "$dotfiles_dir/vim/vim" "$HOME/.vim"
-fi
-
-nvim +PlugInstall +qall
+#======================
+# kitty
+fancy_echo "<=> Linking: kitty config"
+stow kitty
 
 
 #======================
