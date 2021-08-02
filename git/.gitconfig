@@ -2,7 +2,7 @@
 # See the README for examples.
 [user]
   name = Dan Callaghan
-  email = dancallaghan@redant.com.au
+  email = dcallaghan@me.com
 
 [color]
   ui = true
@@ -21,28 +21,7 @@
   whitespace = red reverse
 
 [alias]
-  # add
-  a = add                           # add
-  chunkyadd = add --patch           # stage commits chunk by chunk
-
-  # branch
-  b = branch -v                     # branch (verbose)
-  bm = branch --merged              # branches that have been merged
-  bnm = branch --no-merged          # branches that haven't been merged
-
-  # commit
-  c = commit -m                     # commit with message
-  ca = commit -am                   # commit all with message
-  ci = commit                       # commit
   amend = commit --amend            # ammend your last commit
-  ammend = commit --amend           # ammend your last commit
-
-  # checkout
-  co = checkout                     # checkout
-  nb = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
-
-  # cherry-pick
-  cp = cherry-pick -x               # grab a change from a branch
 
   # diff
   d = diff                          # diff unstaged changes
@@ -50,54 +29,24 @@
   last = diff HEAD^                 # diff last committed change
 
   # log
-  l = log --graph --date=short
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
+  b = "!. ~/.githelpers && pretty_git_branch"
+  bs = "!. ~/.githelpers && pretty_git_branch_sorted"
+  r = !GIT_NO_PAGER=1 git l -30
+  ra = !git r --all
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   changelog = log --pretty=format:\" * %s\"
   shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
 
-  # pull
-  pl = pull                         # pull
-
-  # push
-  ps = push                         # push
-
   # rebase
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
 
-  # remote
-  r = remote -v                     # show remotes (verbose)
-
   # reset
   unstage = reset HEAD              # remove files from index (tracking)
   uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
-  filelog = log -u                  # show changes to a file
-  mt = mergetool                    # fire up the merge tool
-
-  # stash
-  ss = stash                        # stash changes
-  sl = stash list                   # list stashes
-  sa = stash apply                  # apply stash (restore changes)
-  sd = stash drop                   # drop stashes (destory changes)
-
-  # status
-  s = status                        # status
-  st = status                       # status
-  stat = status                     # status
-
-  # tag
-  t = tag -n                        # show tags with <n> lines of each tag message
-
-  # svn helpers
-  svnr = svn rebase
-  svnd = svn dcommit
-  svnl = svn log --oneline --show-commit
-
-  # remove all deleted files
-  rmd = rm $(git ls-files --deleted)
-  ctags = !.git/hooks/ctags
-  recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
@@ -123,9 +72,6 @@
   excludesfile = ~/.dotfiles/git/gitignore
   pager = diff-so-fancy | less --tabs=4 -RFX
 
-[hub]
-  protocol = https
-
 [advice]
   statusHints = false
 
@@ -138,9 +84,6 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
-
-[init]
-  templatedir = ~/.gittemplate
 
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
