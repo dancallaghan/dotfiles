@@ -57,10 +57,7 @@ set showtabline=2
 set winwidth=79
 " Keep more context when scrolling off the end of a buffer
 set scrolloff=3
-" Store temporary files in a central spot
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 " Display incomplete commands
