@@ -2,6 +2,7 @@
 .DS_Store
 .Spotlight-V100
 .Trashes
+.envrc
 
 # tags
 TAGS
@@ -13,7 +14,6 @@ tags
 Session.vim
 
 # rails
-config/database.yml
 config/environments/development.yml
 cache
 log

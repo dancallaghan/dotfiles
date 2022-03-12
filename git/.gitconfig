@@ -26,6 +26,7 @@
   # diff
   d = diff                          # diff unstaged changes
   dc = diff --cached                # diff staged changes
+  du = diff @{upstream}             # diff local with upstream
   last = diff HEAD^                 # diff last committed change
 
   # log
@@ -69,7 +70,7 @@
 [core]
   autocrlf = false
   editor = nvim
-  excludesfile = ~/.dotfiles/git/gitignore
+  excludesfile = ~/.gitignore
   pager = diff-so-fancy | less --tabs=4 -RFX
 
 [advice]
