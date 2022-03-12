@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-dotfiles_dir=`cd -- "$(dirname $0)" > /dev/null 2>&1; pwd -P`
-echo $dotfiles_dir
+dotfiles_dir=$(cd -- "$(dirname "$0")" > /dev/null 2>&1 || exit; pwd -P)
+echo "$dotfiles_dir"
 
 fancy_echo() {
   local fmt="$1"; shift
-  printf "\n$fmt\n" "$@"
+  printf "\n%s\n" "$fmt" "$@"
 }
 
 create_zshrc_local() {
@@ -65,6 +65,7 @@ install_brew() {
     export PATH="/usr/local/bin:$PATH"
   fi
 
+  # shellcheck disable=2016
   append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
 }
 
@@ -77,6 +78,7 @@ install_zim() {
   zsh ~/.zim/zimfw.zsh install
 }
 
+# shellcheck disable=2016
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
 
 
@@ -125,9 +127,7 @@ stow kitty
 fancy_echo "<=> Linking: ctags config"
 stow ctags
 
-
 #======================
-# rbenv + nodenv
-fancy_echo "↪ - Configuring rbenv and nodenv..."
-append_to_zshrc 'eval "$(rbenv init - --no-rehash)"' 1
-append_to_zshrc 'eval "$(nodenv init - --no-rehash)"' 1
+# yamllint
+fancy_echo "<=> Linking: yamllint config"
+stow yamllint
