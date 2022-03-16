@@ -123,8 +123,16 @@ bindkey -M vicmd 'j' history-substring-search-down
 # }}} End configuration added by Zim install
 
 export LC_ALL=en_US.UTF-8
+export EDITOR=nvim
 
-# Local config
+alias v='nvim'
+alias vv='nvim .'
+alias k='kubectl'
+alias kx='kubectx'
+kns() { kubectl config set-context --current --namespace="$1" }
+
+# Generates a lowercase uuid and copies it to the clipboard
+uuid() { uuidgen | tr '[:upper:]' '[:lower:]' | tr -d "\n" | tee >(pbcopy) }
+
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
