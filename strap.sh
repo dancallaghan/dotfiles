@@ -103,37 +103,21 @@ brew bundle --file="$dotfiles_dir/brew/Brewfile"
 
 check_shell
 
+#=======================
+# configuration via stow
 
-#======================
-# git
-fancy_echo "<=> Linking: git config"
-stow git
+declare -a configs
+configs=(
+  asdf
+  ctags
+  git
+  kitty
+  nvim
+  rg
+  yamllint
+)
 
-
-#======================
-# vim
-fancy_echo "<=> Linking: neovim config"
-stow nvim
-
-
-#======================
-# kitty
-fancy_echo "<=> Linking: kitty config"
-stow kitty
-
-
-#======================
-# ctags
-fancy_echo "<=> Linking: ctags config"
-stow ctags
-
-
-#======================
-# asdf
-fancy_echo "<=> Linking: asdf config"
-stow asdf
-
-#======================
-# yamllint
-fancy_echo "<=> Linking: yamllint config"
-stow yamllint
+for config in "${configs[@]}"; do
+  fancy_echo "<=> Linking: ${config} config"
+  stow "$config"
+done

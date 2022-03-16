@@ -124,6 +124,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rgrc
 
 alias v='nvim'
 alias vv='nvim .'

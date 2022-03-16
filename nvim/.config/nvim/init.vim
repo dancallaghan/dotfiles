@@ -239,9 +239,9 @@ map <leader>n :call RenameFile()<cr>
 " FZF
 nnoremap <silent> <leader>ff :FZF<cr>
 nnoremap <silent> <leader>fb :Buffers<cr>
-nnoremap <leader>fa :Ag<space>
-nnoremap <silent> <leader>fs :Ag <C-R><C-W><cr>
-nnoremap <silent> <leader>fd :Ag def <C-R><C-W><cr>
+nnoremap <leader>fa :Rg<space>
+nnoremap <silent> <leader>fs :Rg <C-R><C-W><cr>
+nnoremap <silent> <leader>fd :Rg def <C-R><C-W><cr>
 
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_buffers_jump = 1
