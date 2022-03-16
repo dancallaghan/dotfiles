@@ -127,6 +127,12 @@ stow kitty
 fancy_echo "<=> Linking: ctags config"
 stow ctags
 
+
+#======================
+# asdf
+fancy_echo "<=> Linking: asdf config"
+stow asdf
+
 #======================
 # yamllint
 fancy_echo "<=> Linking: yamllint config"
