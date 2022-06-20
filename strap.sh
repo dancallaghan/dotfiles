@@ -114,6 +114,7 @@ configs=(
   kitty
   nvim
   rg
+  vale
   yamllint
 )
 
