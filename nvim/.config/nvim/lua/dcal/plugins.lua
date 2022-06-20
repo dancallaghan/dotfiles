@@ -35,6 +35,8 @@ return require('packer').startup(function(use)
     end
   }
 
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+
   use 'morhetz/gruvbox'
   use 'tpope/vim-commentary'
   use 'tpope/vim-dotenv'

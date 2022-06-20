@@ -20,9 +20,9 @@ map('n', '<leader><leader>', '<c-^>', noremap)
 -- Insert a hash rocket with <c-l>
 map('i', '<c-l>', '<space>=><space>')
 
--- Automcomplete line
+-- Complete line
 map('i', '<c-d>', '<c-x><c-l>', noremap)
--- Automcomplete omnifunc
+-- Complete omnifunc
 map('i', '<c-q>', '<c-x><c-o>', noremap)
 
 -- Make yank behave like other uppercase commands
