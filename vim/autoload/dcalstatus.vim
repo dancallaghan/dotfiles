@@ -120,7 +120,7 @@ function! dcalstatus#GitBranch() abort
         \ || dcalstatus#IsNonFile()
         \ || dcalstatus#IsHelp()
         \ ? ''
-        \ : ' ' . fugitive#head(7) . ' '
+        \ : ' ' . FugitiveStatusline() . ' '
 endfunction
 
 " @return {String}

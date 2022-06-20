@@ -14,6 +14,7 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'morhetz/gruvbox'
 Plug 'pangloss/vim-javascript'
@@ -32,8 +33,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-test/vim-test'
 Plug 'dancallaghan/fzfgem.vim'
 " neovim lua plugins
+Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
 call plug#end()
 
@@ -339,7 +342,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "solargraph" }
+local servers = { 'solargraph', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -350,10 +353,25 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
+" null-ls
+lua << EOF
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.diagnostics.vale,
+  },
+})
+EOF
+
 " treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {
+    'bash', 'css', 'dockerfile',
+    'help', 'html', 'json', 'lua',
+    'prisma', 'python', 'regex',
+    'ruby', 'scss', 'tsx',
+    'typescript', 'vim', 'yaml'
+  },
   sync_install = false,
   highlight = {
     enable = true,
