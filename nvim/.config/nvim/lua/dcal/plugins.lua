@@ -26,7 +26,6 @@ return require('packer').startup(function(use)
     run = 'make'
   }
 
-  -- TODO: try this out
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
