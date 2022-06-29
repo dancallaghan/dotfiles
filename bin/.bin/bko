@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+if [[ -z "$BUILDKITE_URL" ]]; then
+  echo 'Error: need to set BUILDKITE_URL'
+  exit 1
+fi
+
+if [[ -z "$1" ]]; then
+  branch=$(git rev-parse --abbrev-ref HEAD)
+else
+  branch="$1"
+fi
+
+remote=$(git config --get remote.origin.url | sed -E 's/^.+\/(.+).git$/\1/' | tr '_' '-')
+
+open "$BUILDKITE_URL/$remote/builds/latest?branch=$branch"

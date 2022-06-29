@@ -109,6 +109,7 @@ check_shell
 declare -a configs
 configs=(
   asdf
+  bin
   ctags
   git
   kitty
