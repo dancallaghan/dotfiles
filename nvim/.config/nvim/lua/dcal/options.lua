@@ -27,4 +27,3 @@ opt.softtabstop = 2
 
 -- theme
 opt.background = 'dark'
-cmd([[colorscheme gruvbox]])
