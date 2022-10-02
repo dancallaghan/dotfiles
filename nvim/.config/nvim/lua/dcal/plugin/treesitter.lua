@@ -18,6 +18,9 @@ configs.setup({
     'javascript',
     'json',
     'lua',
+    'markdown',
+    'markdown_inline',
+    'prisma',
     'query',
     'regex',
     'ruby',
@@ -30,9 +33,6 @@ configs.setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
-  },
-  indent = {
-    enable = true
   },
   playground = {
     enable = true
