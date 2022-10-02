@@ -5,4 +5,4 @@ if not ok then
 end
 
 local map = vim.keymap.set
-map('n', '<leader>l', ':TroubleToggle<cr>', { silent = true, noremap = true })
+map('n', '<leader>r', ':TroubleToggle<cr>', { silent = true, noremap = true })
