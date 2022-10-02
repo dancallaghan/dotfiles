@@ -22,7 +22,7 @@ end
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use 'dense-analysis/ale'
+  -- use 'dense-analysis/ale'
 
   use 'nvim-lua/plenary.nvim'
   use 'neovim/nvim-lspconfig'
