@@ -1,6 +1,25 @@
-_ = vim.cmd [[packadd packer.nvim]]
+local fn = vim.fn
 
-return require('packer').startup(function(use)
+-- Automatically install packer
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({
+    'git',
+    'clone',
+    '--depth',
+    '1',
+    'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
+  vim.cmd [[packadd packer.nvim]]
+end
+
+local ok, packer = pcall(require, 'packer')
+if not ok then
+  return
+end
+
+return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'dense-analysis/ale'

@@ -30,6 +30,8 @@ map('n', 'Y', 'y$', noremap)
 
 -- Yank to system clipboard
 map('', '<leader>y', '"*y')
+-- Yank line to system clipboard
+map('n', '<leader>l', '^"*y$', noremap)
 
 -- Clear search
 map('n', '<leader><cr>', ':nohls<cr>', silent_noremap)
