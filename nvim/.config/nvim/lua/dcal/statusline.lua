@@ -11,10 +11,14 @@ local function filepath()
 end
 
 local function branch()
-  local branch = fn.FugitiveHead()
-  if branch == '' then return '' end
+  if packer_plugins['vim-fugitive'] and packer_plugins['vim-fugitive'].loaded then
+    local branch = fn.FugitiveHead()
+    if branch == '' then return '' end
 
-  return '  ' .. fn.FugitiveHead()
+    return '  ' .. branch
+  end
+
+  return ''
 end
 
 local function filename()
@@ -59,13 +63,27 @@ local function lsp()
   return " " .. errors .. warnings .. hints .. info .. " "
 end
 
+local function get_icon(file_name, file_ext)
+  local ok, devicons = pcall(require, 'nvim-web-devicons')
+
+  if not ok then
+    return
+  end
+
+  return devicons.get_icon(
+    file_name,
+    file_ext,
+    { default = true }
+  )
+end
+
 local function filetype()
   local filetype = vim.bo.filetype
   if filetype == '' then return '' end
 
   local file_name = fn.expand('%:t')
   local file_ext = fn.expand('%:e')
-  local icon = require('nvim-web-devicons').get_icon(
+  local icon = get_icon(
     file_name,
     file_ext,
     { default = true }
