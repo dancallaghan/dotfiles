@@ -43,8 +43,11 @@ map('n', '<leader><cr>', ':nohls<cr>', silent_noremap)
 -- map('', '<down>',  '<nop>')
 
 -- Escape in terminal
-map('t', '<c-o>', "<c-\\><c-n>")
+map('t', '<c-o>', '<c-\\><c-n>')
 
 -- Expand %% to directoy name
 map('c', '%%', "<c-r>=expand('%:h').'/'<cr>", noremap)
 map('n', '<leader>e', ":e <c-r>=expand('%:h').'/'<cr>")
+
+-- Print the last git commit
+map('n', '<leader>gc', ':.!git log -1 --pretty=format:\\%B<cr>')

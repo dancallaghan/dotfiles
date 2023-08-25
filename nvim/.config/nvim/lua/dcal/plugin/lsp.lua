@@ -1,53 +1,67 @@
-local ok, lsp_config = pcall(require, 'lspconfig')
+return {
+  {
+    'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      { 'folke/neodev.nvim', opts = {} },
+      'jose-elias-alvarez/typescript.nvim',
+    },
+    keys = {
+      { '[d', vim.diagnostic.goto_prev },
+      { ']d', vim.diagnostic.goto_next },
+    },
+    config = function()
+      local lspconfig = require('lspconfig')
+      lspconfig.lua_ls.setup({})
+      lspconfig.prismals.setup({})
+      lspconfig.solargraph.setup({})
+      -- lspconfig.ruby_ls.setup({})
+      lspconfig.tsserver.setup({})
 
-if not ok then
-  return
-end
+      require('dcal.utils.lsp').setup_attach_autocmd()
+    end,
+  },
 
-local servers_formatting = { ruby_ls = false, tsserver = false }
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = function()
+      local null_ls = require('null-ls')
 
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+      return {
+        on_attach = require('dcal.utils.null-ls').sync_formatting,
+        sources = {
+          null_ls.builtins.diagnostics.commitlint,
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.diagnostics.shellcheck,
+          null_ls.builtins.diagnostics.tsc,
+          null_ls.builtins.diagnostics.yamllint,
 
-  -- Disable formatting for tsserver
-  local format_option = servers_formatting[client.name]
-  if format_option ~= nil then
-    client.resolved_capabilities.document_formatting = format_option
-  end
+          -- Custom rubocop to use bundle exec
+          null_ls.builtins.diagnostics.rubocop.with({
+            command = 'bundle',
+            args = vim.list_extend({ 'exec', 'rubocop' }, null_ls.builtins.diagnostics.rubocop._opts.args),
+            cwd = function(params)
+              local gemfile = vim.fn.findfile('Gemfile', params.root)
+              if gemfile then
+                return vim.fn.fnamemodify(gemfile, ':p:h')
+              end
+            end,
+          }),
 
-  -- Mappings.
-  local opts = { noremap = true, silent = true }
-
-  -- Info
-  buf_set_keymap('n', 'K',        '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<space>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-
-  -- Definitions
-  buf_set_keymap('n', 'gD',       '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd',       '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gi',       '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gr',       '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-
-  -- Diagnostics
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '[d',       '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d',       '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-
-  -- Actions
-  buf_set_keymap('n', '<space>f',  '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
-
-local servers = { 'ruby_ls', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lsp_config[lsp].setup {
-    on_attach = on_attach,
-  }
-end
+          null_ls.builtins.formatting.eslint_d,
+          null_ls.builtins.formatting.fixjson,
+          null_ls.builtins.formatting.prettierd,
+          null_ls.builtins.formatting.prismaFmt,
+          null_ls.builtins.formatting.rubocop,
+          null_ls.builtins.formatting.shfmt.with({
+            args = vim.list_extend({ '-i', '2' }, null_ls.builtins.formatting.shfmt._opts.args),
+          }),
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.trim_whitespace,
+          require('typescript.extensions.null-ls.code-actions'),
+        },
+      }
+    end,
+  },
+}

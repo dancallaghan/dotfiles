@@ -1,40 +1,50 @@
-local ok, configs = pcall(require, 'nvim-treesitter.configs')
-
-if not ok then
-  return
-end
-
-configs.setup({
-  ensure_installed = {
-    'bash',
-    'comment',
-    'css',
-    'dockerfile',
-    'go',
-    'graphql',
-    'hcl',
-    'help',
-    'html',
-    'javascript',
-    'json',
-    'lua',
-    'markdown',
-    'markdown_inline',
-    'prisma',
-    'query',
-    'regex',
-    'ruby',
-    'scss',
-    'tsx',
-    'typescript',
-    'vim',
-    'yaml'
+return {
+  'nvim-treesitter/nvim-treesitter',
+  version = false,
+  build = ':TSUpdate',
+  event = { 'BufReadPost', 'BufNewFile' },
+  opts = {
+    ensure_installed = {
+      'bash',
+      'comment',
+      'css',
+      'dockerfile',
+      'go',
+      'graphql',
+      'hcl',
+      'html',
+      'javascript',
+      'json',
+      'jsdoc',
+      'lua',
+      'markdown',
+      'markdown_inline',
+      'prisma',
+      'php',
+      'query',
+      'regex',
+      'ruby',
+      'scss',
+      'terraform',
+      'tsx',
+      'typescript',
+      'vim',
+      'yaml',
+    },
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    playground = {
+      enable = true,
+    },
+    indent = {
+      enable = true,
+      disable = { 'ruby' },
+    },
   },
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  playground = {
-    enable = true
-  }
-})
+  ---@param opts TSConfig
+  config = function(_, opts)
+    require('nvim-treesitter.configs').setup(opts)
+  end,
+}
