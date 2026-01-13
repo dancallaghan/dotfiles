@@ -10,6 +10,7 @@ return {
       'css',
       'dockerfile',
       'go',
+      'gotmpl',
       'graphql',
       'hcl',
       'html',
@@ -25,6 +26,7 @@ return {
       'regex',
       'ruby',
       'scss',
+      'sql',
       'terraform',
       'tsx',
       'typescript',
@@ -43,8 +45,9 @@ return {
       disable = { 'ruby' },
     },
   },
-  ---@param opts TSConfig
+  --- @param opts TSConfig
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
+    vim.treesitter.language.register('bash', 'dotenv')
   end,
 }

@@ -27,29 +27,21 @@ return {
   keys = {
     {
       '<leader>tt',
-      function()
-        require('neotest').run.run()
-      end,
+      function() require('neotest').run.run() end,
       desc = 'Test Nearest',
     },
     {
       '<leader>tf',
-      function()
-        require('neotest').run.run(vim.fn.expand('%'))
-      end,
+      function() require('neotest').run.run(vim.fn.expand('%')) end,
       desc = 'Test File',
     },
     {
       '<leader>ts',
-      function()
-        require('neotest').run.run({ suite = true })
-      end,
+      function() require('neotest').run.run({ suite = true }) end,
     },
     {
       '<leader>tg',
-      function()
-        require('neotest').output_panel.toggle()
-      end,
+      function() require('neotest').output_panel.toggle() end,
       desc = 'Toggle test output panel',
     },
   },

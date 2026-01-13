@@ -1,5 +1,4 @@
 require('dcal/options')
 require('dcal/keymaps')
 require('dcal/plugins')
-require('dcal/tab_completion')
-require('dcal/statusline')
+require('dcal/lsp')

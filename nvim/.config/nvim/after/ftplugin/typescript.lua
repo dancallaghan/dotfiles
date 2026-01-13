@@ -1,2 +1,2 @@
-vim.bo.makeprg = 'tsc'
-vim.bo.errorformat = ' > %f:%l:%c: %trror: %m' .. ',%-G%.%#' -- = ignore remaining lines
+vim.cmd.compiler('tsc')
+vim.opt_local.makeprg = 'tsc --noEmit --incremental'

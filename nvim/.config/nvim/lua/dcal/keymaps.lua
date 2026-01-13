@@ -51,3 +51,6 @@ map('n', '<leader>e', ":e <c-r>=expand('%:h').'/'<cr>")
 
 -- Print the last git commit
 map('n', '<leader>gc', ':.!git log -1 --pretty=format:\\%B<cr>')
+
+-- make
+map('n', '<leader>m', ':make<cr>')
